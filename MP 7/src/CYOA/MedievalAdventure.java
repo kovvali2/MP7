@@ -2,31 +2,31 @@ package CYOA;
 import java.util.*;
 
 public class MedievalAdventure implements Adventure {
-	Scanner scan;
+	private Node start;
+	private String playerName;
+	static Scanner myScan = new Scanner(System.in);
+	
 	public void embark() {
-		scan = new Scanner(System.in);
-		System.out.println("Welcome to medieval times! What would you like to do?\n"
-							+ "\t 1. Go home\n"
-							+ "\t 2. Go to the castle\n"
-							+ "\t 3. Go to the pub\n"
-							+ "\t 4. Stay here");
-		int choice = getUserInput(4);
-		System.out.println("You chose choice " + choice);
-		/*REST OF ADVENTURE GOES HERE. WE CAN ADD IN RANDOM STUFF WITH THE DI CLASS AS WELL AS ATTACKS AND OTHER THINGS*/
+		System.out.println(this.start.play());
 	}
 	
-	public int getUserInput(int numOptions) {
-		int choice = 0;
-		while (choice < 1 || choice > numOptions) {
-			try {
-				choice = scan.nextInt();
-				if (choice < 1 || choice > numOptions) {
-					System.out.println("Please enter a number between 1 and " + numOptions);
-				}
-			} catch (Exception e) {
-				System.out.println("Invalid Input. Please enter the number corresponding to your choice.");
-			}
-		}
-		return choice;
+	public void namePlayer() {
+		System.out.println("Please enter a name for your character");
+		this.playerName = myScan.nextLine();
 	}
+	
+	public MedievalAdventure() {
+		this.namePlayer();
+		String[] startOptions = new String[]{"Go home", "Go to the castle", "Go to the pub", "Stay here"};
+		Node home = new Node("You are at the castle");
+		Node castle = new Node("You are at the castle");
+		Node pub = new Node("You are at the pub");
+		Node here = new Node("You are here");
+		Node[] startContinue = new Node[] {home, castle, pub, here};
+		this.start = new Node("Welcome to medieval times " + playerName +"!\n"
+				+             "You are a knight who is currently in the town square.\n"
+				+ "What do you want to do?", startOptions, startContinue);
+		
+	}
+	
 }

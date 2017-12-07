@@ -14,7 +14,7 @@ public class Node {
 	}
 	private NodeType type;
 	private Node[] next;
-	private Roll dice;
+	private Di dice;
 	public Node() {
 		
 	}
@@ -37,29 +37,27 @@ public class Node {
 		this.next = cont;
 	}
 	
-	public Node(String line, Roll die, Node[] cont) {
+	public Node(String line, Di die, Node[] cont) {
 		this.type = NodeType.DICE;
 		this.text = line;
 		this.dice = die;
 		this.next = cont;
 	}
 	
-	public int choice() {
-		System.out.println("	" + "Please enter the number for your choice.");
-		for(int i = 0; i < this.choices.length; i++) {
-			System.out.println("	" + "	"+i+": "+this.choices[i]);
-		}
-		int selection;
-		while(true) {
-			selection = myScan.nextInt();
-			if(selection < this.choices.length) {
-				break;
-			} else {
-				System.err.println("<invalid input please enter again>");
+	
+	public int getUserInput(int numOptions) {
+		int choice = 0;
+		while (choice < 1 || choice > numOptions) {
+			try {
+				choice = myScan.nextInt();
+				if (choice < 1 || choice > numOptions) {
+					System.out.println("Please enter a number between 1 and " + numOptions);
+				}
+			} catch (Exception e) {
+				System.out.println("Invalid Input. Please enter the number corresponding to your choice.");
 			}
 		}
-
-		return selection;
+		return choice;
 	}
 	
 	public String play() {
@@ -75,12 +73,18 @@ public class Node {
 			return this.next[0].play();
 			
 		case DICE:
-				System.out.println(this.dice);
-				myScan.nextLine();
-				return this.next[this.dice.check()].play();
+				System.out.println("Rolling a die with " + this.dice.numSides + "sides and a target number of " + this.dice.target);
+				if(this.dice.check()) {
+					return this.next[1].play();
+				}
+				return this.next[0].play();
 				
 		case CHOICE:
-			return this.next[this.choice()].play();
+			for (int i = 0; i < this.choices.length; i++) {
+				System.out.println("	" + (i+1)+":"+" "+this.choices[i]);
+			}
+			int choice = getUserInput(this.next.length);
+			return this.next[choice-1].play();
 			
 		default: return null;
 		}

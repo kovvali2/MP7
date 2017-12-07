@@ -1,10 +1,12 @@
 package CYOA;
 
 public class Di {
-	private int numSides;
+	public int numSides;
+	public int target;
 	
-	public Di(int side){
+	public Di(int side, int target){
 		this.numSides = side;
+		this.target = target;
 	}
 	
 	/**
@@ -14,5 +16,12 @@ public class Di {
 	public int roll() {
 		double value = Math.random() * numSides;
 		return ((int) value) + 1; 
+	}
+	
+	public boolean check() {
+		if (this.roll() >= this.target) {
+			return true;
+		}
+		return false;
 	}
 }
