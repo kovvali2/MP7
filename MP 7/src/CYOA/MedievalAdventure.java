@@ -18,14 +18,16 @@ public class MedievalAdventure implements Adventure {
 	public MedievalAdventure() {
 		this.namePlayer();
 		String[] startOptions = new String[]{"Go home", "Go to the castle", "Go to the pub", "Stay here"};
+		this.start = new Node("Welcome to medieval times " + playerName +"!\n"
+				+             "You are a knight who is currently in the town square.\n"
+				+ "What do you want to do?", startOptions, null);
 		Node home = new Node("You are at the castle");
 		Node castle = new Node("You are at the castle");
 		Node pub = new Node("You are at the pub");
 		Node here = new Node("You are here");
 		Node[] startContinue = new Node[] {home, castle, pub, here};
-		this.start = new Node("Welcome to medieval times " + playerName +"!\n"
-				+             "You are a knight who is currently in the town square.\n"
-				+ "What do you want to do?", startOptions, startContinue);
+		this.start.setNext(startContinue);
+
 		
 	}
 	

@@ -60,6 +60,10 @@ public class Node {
 		return choice;
 	}
 	
+	public void setNext(Node[] next) {
+		this.next = next;
+	}
+	
 	public String play() {
 		if(this.type == NodeType.ENDING) {
 			return this.text;
