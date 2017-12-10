@@ -77,7 +77,7 @@ public class Node {
 			return this.next[0].play();
 			
 		case DICE:
-				System.out.println("Rolling a die with " + this.dice.numSides + "sides and a target number of " + this.dice.target);
+				System.out.println("Rolling a die with " + this.dice.numSides + " sides and a target number of " + this.dice.target);
 				if(this.dice.check()) {
 					return this.next[1].play();
 				}

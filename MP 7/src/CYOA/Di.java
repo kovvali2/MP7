@@ -19,7 +19,9 @@ public class Di {
 	}
 	
 	public boolean check() {
-		if (this.roll() >= this.target) {
+		int a = this.roll();
+		System.out.println("You rolled a "+a);
+		if (a >= this.target) {
 			return true;
 		}
 		return false;
